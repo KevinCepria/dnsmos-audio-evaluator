@@ -39,8 +39,8 @@ function App() {
     return () => clearTimeout(timer);
   }, [countdown, stopFullRecording]);
 
-  const handleStart = () => {
-    startFullRecording();
+  const handleStart = async () => {
+    await startFullRecording();
     setCountdown(5);
   };
 

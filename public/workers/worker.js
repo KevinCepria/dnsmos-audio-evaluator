@@ -7,7 +7,7 @@ const WINDOW_SECONDS = 5;
 const REQUIRED_SAMPLES = Math.floor(SAMPLE_RATE * WINDOW_SECONDS);
 
 // tune this after testing
-const QUALITY_THRESHOLD = 2.2;
+const QUALITY_THRESHOLD = 2.0;
 
 let session = null;
 
@@ -18,7 +18,6 @@ function expandAudio(audio) {
 
   while (expanded.length < targetLength) {
     const merged = new Float32Array(expanded.length + audio.length);
-    console.log("RRRRR", expanded.length)
     merged.set(expanded);
     merged.set(audio, expanded.length);
 
@@ -30,12 +29,11 @@ function expandAudio(audio) {
 
 async function runInference(audio) {
   const expandedAudio = expandAudio(audio);
-   console.log("SSSSSSSSSS 1")
+
   const inputTensor = new ort.Tensor("float32", expandedAudio, [
     1,
     expandedAudio.length,
   ]);
-   console.log("SSSSSSSSSS 2")
 
   const result = await session.run({
     input_1: inputTensor,

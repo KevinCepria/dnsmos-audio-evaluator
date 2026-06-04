@@ -54,7 +54,7 @@ class PcmProcessor extends AudioWorkletProcessor {
     // Emit 480-sample chunks if available
     while (this.ringBuffer.available() >= 512) {
       const chunk = this.ringBuffer.pop(512);
-      this.port.postMessage(chunk);
+      this.port.postMessage(chunk.buffer, [chunk.buffer]);
     }
 
     return true;
